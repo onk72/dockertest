@@ -1,0 +1,11 @@
+lb:
+  image: dockercloud/haproxy
+  links:
+    - web
+  ports:
+    - "8081:80"
+  roles:
+    - global
+web:
+  image: onk72/web
+  target_num_containers: 4

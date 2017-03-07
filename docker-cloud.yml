@@ -1,0 +1,28 @@
+version: '3.0'
+services:
+  lb:
+    image: dockercloud/haproxy
+    links:
+      - web
+    ports:
+      - "8090:80"
+    restart: always
+    networks:
+      - front-tier
+      - back-tier
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+ 
+  web:
+    image: web
+    volumes:
+      - ./static:/usr/share/nginx/html
+    restart: always
+    target_num_containers: 5
+    networks:
+      - back-tier
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge

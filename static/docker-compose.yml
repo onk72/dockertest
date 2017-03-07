@@ -1,0 +1,11 @@
+lb:
+  image: dockercloud/haproxy
+  links:
+    - web
+  ports:
+    - "8081:80"
+ 
+web:
+  image: web
+  ports:
+    - "8080:80"
